@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import { FaGoogle, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
@@ -6,9 +5,9 @@ const Footer = () => {
   return (
     <footer className="footer bg-black text-white p-10">
       <aside>
-        <Link to="/">
+        <a href="#banner">
           <img src={logo} alt="header logo" className="w-20 h-20" />
-        </Link>
+        </a>
         <p className="w-1/2">
           Edwin Diaz is a software and web technologies engineer, a life coach
           trainer who is also a serial.
@@ -22,20 +21,28 @@ const Footer = () => {
       </aside>
       <nav>
         <h6 className="footer-title">About</h6>
-        <Link className="no-underline text-white">Home</Link>
-        <Link className="no-underline text-white">Services</Link>
-        <Link className="no-underline text-white">Contact</Link>
+        <a href="#home" className="no-underline text-white">
+          Home
+        </a>
+        <a href="#services" className="no-underline text-white">
+          Services
+        </a>
+        <a href="#contact" className="no-underline text-white">
+          Contact
+        </a>
       </nav>
       <nav>
         <h6 className="footer-title">Company</h6>
-        <Link className="no-underline text-white">About</Link>
-        <Link className="no-underline text-white">Why car doctor</Link>
+        <a href="#about" className="no-underline text-white">
+          About
+        </a>
+        <a className="no-underline text-white">Why car doctor</a>
       </nav>
       <nav>
         <h6 className="footer-title">Support</h6>
-        <Link className="no-underline text-white">Support Center</Link>
-        <Link className="no-underline text-white">Feedback</Link>
-        <Link className="no-underline text-white">Accesbility</Link>
+        <a className="no-underline text-white">Support Center</a>
+        <a className="no-underline text-white">Feedback</a>
+        <a className="no-underline text-white">Accesbility</a>
       </nav>
     </footer>
   );

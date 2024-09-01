@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "1",
+    "title": "Car Engine Plug",
+    "img": "/src/assets/images/products/1.png",
+    "price": "20.00"
+  },
+  {
+    "_id": "2",
+    "title": "Car Air Filter",
+    "img": "/src/assets/images/products/2.png",
+    "price": "20.00"
+  },
+  {
+    "_id": "3",
+    "title": "Cools Led Light",
+    "img": "/src/assets/images/products/3.png",
+    "price": "20.00"
+  },
+  {
+    "_id": "4",
+    "title": "Suspension",
+    "img": "/src/assets/images/products/4.png",
+    "price": "20.00"
+  },
+  {
+    "_id": "5",
+    "title": "Tier",
+    "img": "/src/assets/images/products/5.png",
+    "price": "20.00"
+  },
+  {
+    "_id": "6",
+    "title": "Buttery",
+    "img": "/src/assets/images/products/6.png",
+    "price": "20.00"
+  }
+]
