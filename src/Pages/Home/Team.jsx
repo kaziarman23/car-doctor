@@ -35,7 +35,6 @@ const Team = () => {
         or randomised words which don&#39;t look even slightly believable.
       </p>
 
-      {/* carousel part */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10">
         {cards.map((card) => (
           <div key={card.id} className="card bg-base-100 w-96 shadow-xl">
