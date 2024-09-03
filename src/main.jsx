@@ -11,6 +11,7 @@ import Contact from "./Pages/Contact/Contact";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import AuthProviders from "./Providers/AuthProviders";
+import NotFound from "./Pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
