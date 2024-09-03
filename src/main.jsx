@@ -10,8 +10,8 @@ import Blog from "./Pages/Blog/Blog";
 import Contact from "./Pages/Contact/Contact";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
-import AuthProviders from "./Providers/AuthProviders";
 import NotFound from "./Pages/NotFound/NotFound";
+import AuthProvider from "./Providers/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -57,8 +57,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProviders>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </AuthProviders>
+    </AuthProvider>
   </StrictMode>
 );

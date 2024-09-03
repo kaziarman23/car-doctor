@@ -2,8 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import { IoBagOutline } from "react-icons/io5";
 import { IoMdSearch } from "react-icons/io";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Header = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+
   const navLinks = (
     <>
       <NavLink to="/" className="no-underline">
@@ -23,6 +28,22 @@ const Header = () => {
       </NavLink>
     </>
   );
+
+  const handleLogout = () => {
+    // loging out user
+    logoutUser()
+      .then(() => {
+        Swal.fire({
+          title: "Success",
+          text: "Logout Successfull",
+          icon: "success",
+          confirmButtonText: "Okey",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="navbar">
       <div className="navbar-start">
@@ -62,9 +83,22 @@ const Header = () => {
           <IoBagOutline className="w-5 h-5" />
           <IoMdSearch className="w-5 h-5" />
         </div>
-        <button className="font-semibold btn text-[#FF3811] border-[#FF3811]">
-          Appointment
-        </button>
+        {user ? (
+          <Link>
+            <button
+              onClick={handleLogout}
+              className="font-semibold btn text-[#FF3811] border-[#FF3811]"
+            >
+              Logout
+            </button>
+          </Link>
+        ) : (
+          <Link to="/signup">
+            <button className="font-semibold btn text-[#FF3811] border-[#FF3811]">
+              Appointment
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

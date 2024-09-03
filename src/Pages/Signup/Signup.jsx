@@ -4,22 +4,26 @@ import facebook from "../../assets/images/login/facebook.png";
 import linkedin from "../../assets/images/login/linkedin.png";
 import google from "../../assets/images/login/search.png";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../Providers/AuthProviders";
+import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, loading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const handleSignup = (e) => {
     e.preventDefault();
     console.log(email, password);
 
+    if (loading) {
+      return <span className="loading loading-infinity loading-lg"></span>; 
+    }
     // creating a new user
-    createUser(email, password).then((result) => {
+    createUser(email, password)
+      .then((result) => {
         console.log(result.user);
         Swal.fire({
           title: "Success",
@@ -33,7 +37,8 @@ const Signup = () => {
         setEmail("");
         setPassword("");
         navigate("/");
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log("creating user error: ", error);
       });
   };

@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import facebook from "../../assets/images/login/facebook.png";
 import linkedin from "../../assets/images/login/linkedin.png";
 import google from "../../assets/images/login/search.png";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../Providers/AuthProviders";
+import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -13,17 +13,29 @@ const Login = () => {
 
   const { loginUser } = useContext(AuthContext);
 
+  const navigate = useNavigate( );
+
   const handleLogin = (e) => {
     e.preventDefault();
 
-    loginUser(email, password).then(() => {
-      Swal.fire({
-        title: "Success",
-        text: "Signup Successfull",
-        icon: "success",
-        confirmButtonText: "Cool",
+    loginUser(email, password)
+      .then(() => {
+        Swal.fire({
+          title: "Success",
+          text: "Signup Successfull",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+
+        console.log("login successfull");
+
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    });
   };
 
   return (
