@@ -12,19 +12,13 @@ const Header = () => {
   const navLinks = (
     <>
       <NavLink to="/" className="no-underline">
-        <li className="p-2 text-black font-semibold">Home</li>
+        <li className="p-2 hover:text-white font-semibold">Home</li>
       </NavLink>
       <NavLink to="/about" className="no-underline">
-        <li className="p-2 text-black font-semibold">About</li>
+        <li className="p-2 hover:text-white font-semibold">About</li>
       </NavLink>
-      <NavLink to="/services" className="no-underline">
-        <li className="p-2 text-black font-semibold">Services</li>
-      </NavLink>
-      <NavLink to="/blog" className="no-underline">
-        <li className="p-2 text-black font-semibold">Blog</li>
-      </NavLink>
-      <NavLink to="/contact" className="no-underline">
-        <li className="p-2 text-black font-semibold">Contact</li>
+      <NavLink to="/bookings" className="no-underline">
+        <li className="p-2 hover:text-white font-semibold">My Bookings</li>
       </NavLink>
     </>
   );
@@ -66,7 +60,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {navLinks}
           </ul>

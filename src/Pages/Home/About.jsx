@@ -22,13 +22,13 @@ const About = () => {
           <h1 className="w-1/2 text-4xl font-bold">
             We are qualified & of experience in this field
           </h1>
-          <p className="">
+          <p>
             There are many variations of passages of Lorem Ipsum available, but
             the majority have suffered alteration in some form, by injected
             humour, or randomised words which don&#39;t look even slightly
             believable.
           </p>
-          <p className="">
+          <p>
             the majority have suffered alteration in some form, by injected
             humour, or randomised words which don&#39;t look even slightly
             believable.

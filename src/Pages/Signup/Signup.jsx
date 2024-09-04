@@ -8,6 +8,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Signup = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,7 +25,10 @@ const Signup = () => {
     // creating a new user
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+
+        const user = result.user
+        user.displayName = name
+        console.log(user);
         Swal.fire({
           title: "Success",
           text: "Signup Successfull",
@@ -34,6 +38,7 @@ const Signup = () => {
 
         console.log("sign up success");
 
+        setName("");
         setEmail("");
         setPassword("");
         navigate("/");
@@ -57,6 +62,19 @@ const Signup = () => {
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form onSubmit={handleSignup} className="card-body">
             <h1 className="text-3xl font-bold text-center">Signup</h1>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input input-bordered"
+                required
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
