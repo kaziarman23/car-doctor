@@ -17,7 +17,6 @@ const BookService = () => {
 
   const handleBookService = (e) => {
     e.preventDefault();
-
     const booking = {
       name,
       date,
@@ -40,7 +39,6 @@ const BookService = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          
           // showing alert
           Swal.fire({
             title: "Success",
@@ -70,6 +68,8 @@ const BookService = () => {
 
     navigate("/");
   };
+
+  
 
   return (
     <div>

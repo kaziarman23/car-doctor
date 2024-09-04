@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -11,7 +12,70 @@ const Bookings = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => setBookings(data));
-  });
+  }, [url]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/bookings/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              const remaining = bookings.filter(
+                (booking) => booking._id !== id
+              );
+              setBookings(remaining);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your service has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
+
+  const handleBookingConfirmed = (id) => {
+    fetch(`http://localhost:5000/bookings/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "Order Confirmed" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          // updating function
+          const remainingService = bookings.filter(
+            (booking) => booking._id !== id
+          );
+          const updatedService = bookings.find((booking) => booking._id === id);
+          updatedService.status = "Order Confirmed";
+          const newBookings = [updatedService, ...remainingService];
+          setBookings(newBookings);
+
+          // showing alert
+          Swal.fire({
+            title: "Updated",
+            text: "Your service has been updated.",
+            icon: "success",
+          });
+        }
+      });
+  };
+
   return (
     <div>
       <div></div>
@@ -20,34 +84,29 @@ const Bookings = () => {
           My All Bookings: {bookings.length}
         </h1>
 
-        {/* table div */}
         <div className="overflow-x-auto">
           <table className="table">
-            {/* head */}
             <thead>
               <tr>
                 <th>Service Name</th>
                 <th>Email</th>
                 <th>Price</th>
                 <th>Date</th>
-                <th>Process</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {/* table row  */}
               {bookings.map((booking) => (
                 <tr key={booking._id}>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
-                          {booking.img && (
-                            <img
-                              src={booking.img}
-                              alt="Avatar Tailwind CSS Component"
-                            />
-                          )}
+                          <img
+                            src={booking.service_img}
+                            alt="Avatar Tailwind CSS Component"
+                          />
                         </div>
                       </div>
                       <div>
@@ -59,12 +118,24 @@ const Bookings = () => {
                   <td>${booking.price}</td>
                   <th>{booking.date}</th>
                   <th>
-                    <button className="btn p-2 bg-orange-500 text-black pointer-events-none">
-                      Panding
-                    </button>
+                    {booking.status === "Order Confirmed" ? (
+                      <button className="btn p-2 bg-green-500 hover:text-white text-black">
+                        Order Confirmed
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleBookingConfirmed(booking._id)}
+                        className="btn p-2 bg-orange-500 hover:text-white text-black"
+                      >
+                        Please Confirm
+                      </button>
+                    )}
                   </th>
                   <th>
-                    <button className="btn p-2 bg-red-500 text-black hover:text-white">
+                    <button
+                      onClick={() => handleDelete(booking._id)}
+                      className="btn p-2 bg-red-500 text-black hover:text-white"
+                    >
                       Delete
                     </button>
                   </th>
