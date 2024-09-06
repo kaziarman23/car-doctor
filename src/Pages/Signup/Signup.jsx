@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import facebook from "../../assets/images/login/facebook.png";
 import linkedin from "../../assets/images/login/linkedin.png";
@@ -12,22 +12,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { createUser, loading } = useContext(AuthContext);
 
-  const navigate = useNavigate();
   const handleSignup = (e) => {
     e.preventDefault();
     console.log(email, password);
 
     if (loading) {
-      return <span className="loading loading-infinity loading-lg"></span>; 
+      return <span className="loading loading-infinity loading-lg"></span>;
     }
     // creating a new user
     createUser(email, password)
       .then((result) => {
-
-        const user = result.user
-        user.displayName = name
+        const user = result.user;
+        user.displayName = name;
         console.log(user);
         Swal.fire({
           title: "Success",
@@ -36,12 +37,11 @@ const Signup = () => {
           confirmButtonText: "Cool",
         });
 
-        console.log("sign up success");
 
         setName("");
         setEmail("");
         setPassword("");
-        navigate("/");
+        navigate(location?.state ? location?.state : "/");
       })
       .catch((error) => {
         console.log("creating user error: ", error);

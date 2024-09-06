@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import facebook from "../../assets/images/login/facebook.png";
 import linkedin from "../../assets/images/login/linkedin.png";
@@ -6,6 +6,7 @@ import google from "../../assets/images/login/search.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,13 +14,27 @@ const Login = () => {
 
   const { loginUser } = useContext(AuthContext);
 
-  const navigate = useNavigate( );
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     loginUser(email, password)
       .then(() => {
+
+        // getting access token
+        const user = { email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            if (res.data.success) {
+              navigate(location?.state ? location?.state : "/");
+            }
+          })
+          .catch((error) => console.log(error));
+
+        // showing success alert
         Swal.fire({
           title: "Success",
           text: "Signup Successfull",
@@ -27,11 +42,9 @@ const Login = () => {
           confirmButtonText: "Cool",
         });
 
-        console.log("login successfull");
-
+        // clearing all inputs
         setEmail("");
         setPassword("");
-        navigate("/");
       })
       .catch((error) => {
         console.log(error);
