@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
       // setting a token to all users
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", loggedUser, {
+          .post("https://car-doctor-server-livid-theta.vercel.app/jwt", loggedUser, {
             withCredential: true,
           })
           .then((res) => {
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
           });
       } else {
         axios
-          .post("http://localhost:5000/logout", loggedUser, {
+          .post("https://car-doctor-server-livid-theta.vercel.app/logout", loggedUser, {
             withCredentials: true,
           })
           .then((res) => {

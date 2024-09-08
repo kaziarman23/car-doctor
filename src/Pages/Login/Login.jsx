@@ -26,7 +26,7 @@ const Login = () => {
         // getting access token
         const user = { email };
         axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://car-doctor-server-livid-theta.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => {
             if (res.data.success) {
               navigate(location?.state ? location?.state : "/");

@@ -5,7 +5,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://car-doctor-server-livid-theta.vercel.app",
   withCredentials: true,
 });
 
