@@ -24,7 +24,7 @@ const Header = () => {
   );
 
   const handleLogout = () => {
-    // loging out user
+    // loging out the user
     logoutUser()
       .then(() => {
         Swal.fire({
